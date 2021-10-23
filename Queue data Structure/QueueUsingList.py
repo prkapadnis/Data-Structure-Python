@@ -24,7 +24,7 @@ class Queue:
             The get_front return the front element of the queue
         """
         if self.is_empty():
-            return "The Queue is Empty"
+            return "The Queue data Structure is Empty"
         else :
             return self.front.data 
 
@@ -33,7 +33,7 @@ class Queue:
             It get_rear return thr last element of the queue.
         """
         if self.is_empty():
-            return "The Queue is Empty"
+            return "The Queue data Structure is Empty"
         else :
             return self.rear.data
 
@@ -49,7 +49,7 @@ class Queue:
             Because the queue is LIFO structure
         """
         if self.is_empty():
-            print("The Queue is underflow!!")
+            print("The Queue data Structure is underflow!!")
         else:
             delNode = self.front
             self.front = self.front.next
@@ -59,7 +59,7 @@ class Queue:
     def display(self):
         traverse = self.front
         if(self.front):
-            print("The Queue is: ", end=" ")
+            print("The Queue data Structure is: ", end=" ")
             while traverse:
                 print(traverse.data, end=" ")
                 traverse = traverse.next

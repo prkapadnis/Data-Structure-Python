@@ -16,7 +16,7 @@ class CircularQueue:
 
     def enqueue(self, data):
         if self.isFull():
-            print("The Queue is Overflow!!!")
+            print("The Queue data Structure is Overflow!!!")
         else :
             if self.front == -1:
                 self.front = self.rear = 0
@@ -27,7 +27,7 @@ class CircularQueue:
     
     def dequeue(self):
         if self.isEmpty():
-            print("The Queue is UnderFlow!!")
+            print("The Queue data Structure is UnderFlow!!")
         elif self.front == self.rear:
             temp = self.queue[self.front] 
             self.front = -1
@@ -40,9 +40,9 @@ class CircularQueue:
     
     def display(self):
         if self.isEmpty():
-            print("The Queue is empty!!")
+            print("The Queue data Structure is empty!!")
             return
-        print("The Queue is: ", end=" ")
+        print("The Queue data Structure is: ", end=" ")
         if (self.rear >= self.front):
             for i in range(self.front, self.rear + 1):
                 print(self.queue[i], end=" ")
