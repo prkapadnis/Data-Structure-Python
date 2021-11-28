@@ -19,3 +19,6 @@ def isPerfectSquare(num):
     return end
 
 print("%.2f"%isPerfectSquare(50))
+
+
+def isPerfectSquare(num):
