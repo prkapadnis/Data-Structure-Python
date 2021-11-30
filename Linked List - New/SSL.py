@@ -1,3 +1,6 @@
+from typing_extensions import ParamSpec
+
+
 class Node :
     def __init__(self, data) :
         self.data = data
@@ -36,7 +39,7 @@ class SinglyLinkedList:
                 self.size += 1
         else:
             print("Plzz Enter the valid position!!!")
-    
+            
     def delete(self, data):
         temp = self.head
         traverse = self.head.next
