@@ -69,5 +69,4 @@ obj.append(20)
 obj.append(30)
 obj.append(40)
 obj.append(50)
-
 obj.display()
