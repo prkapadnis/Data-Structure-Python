@@ -40,11 +40,11 @@ def deleteMiddle(head):
 
 
 obj = LinkedList(1)
-# obj.append(2)
-# obj.append(3)
-# obj.append(4)
-# obj.append(5)
-# obj.append(6)
+obj.append(2)
+obj.append(3)
+obj.append(4)
+obj.append(5)
+obj.append(6)
 obj.display()
 deleteMiddle(obj.head)
 obj.display()

@@ -1,44 +1,115 @@
+# Finding the middle node of the Linked list
+
 class Node:
     def __init__(self, data):
-        self.value = data
+        self.data = data
         self.next = None
 
-class LinkedList:
+class Linkedlist:
     def __init__(self, data):
         self.head = Node(data)
         self.tail = self.head
         self.size = 1
-    
+
+#   Insertoin using recursion
+    def insertion(self, data, index, node):
+        if index == 0:
+            temp = Node(data)
+            temp.next = node
+            self.size += 1
+            return temp
+        
+        node.next = self.insertion(data, index-1, node.next)
+        return node
+
+#   Inserrtion operation
+
     def append(self, data):
+        """
+            it appends to the node to the last of the list
+        """
         node = Node(data)
-        if self.head:
-            self.tail.next = node
-            self.tail = node
+        self.tail.next = node
+        self.tail = node
+        self.size += 1
+    
+    def insert(self, data, position):
+        """
+            Insert the Node at specific position
+        """
+        if position < self.size:
+            node = Node(data)
+            traverse = self.head
+            for i in range(position-2):
+                traverse = traverse.next
+            node.next = traverse.next
+            traverse.next = node
             self.size += 1
         else:
-            self.head = node
-            self.size += 1
+            print(f'{position} position does not exit')
+
+    def insertFirst(self, data):
+        """
+            Insert at the first position
+        """
+        node = Node(data)
+        node.next = self.head
+        self.head = node
+        self.size += 1
+
+#   Deletion operation
+
+    def deleteFirst(self):
+        """
+            Deletes the first Node
+        """
+        temp = self.head
+        self.head = self.head.next
+        del temp
+    
+    def deleteLast(self):
+        """
+            Deletes the last node
+        """
+        traverse = self.head
+        while traverse.next != self.tail:
+            traverse = traverse.next
+        temp = self.tail
+        self.tail = traverse
+        del temp
+    
+    def delete(self, index):
+        """
+            deletes the node at specific index
+        """
+        traverse = self.head
+        for i in range(index-2):
+            traverse = traverse.next
+        temp = traverse.next
+        traverse.next = temp.next
+        del temp
 
     def display(self):
         traverse = self.head
         while traverse:
-            print(traverse.value, end=' -> ')
+            print(traverse.data)
             traverse = traverse.next
-        print(' END')
-    
+        print('end')
+
+sll = Linkedlist(10)
+sll.append(20)
+sll.append(30)
+sll.append(40)
+sll.append(50)
+sll.append(60)
+
 def middleNode(head):
     slow = head
     fast = head
-    while fast and fast.next:
+    while fast != None and fast.next != None:
         slow = slow.next
         fast = fast.next.next
-    return slow
+    
+    return slow.data
 
-obj = LinkedList(1)
-# obj.append(2)
-# obj.append(3)
-# obj.append(4)
-# obj.append(5)
-# obj.append(6)
-obj.display()
-print('The Middle node is: ',middleNode(obj.head).value)
+print(middleNode(sll.head))

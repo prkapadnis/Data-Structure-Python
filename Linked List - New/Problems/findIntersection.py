@@ -1,3 +1,5 @@
+# Intersection of Two linked list
+# https://leetcode.com/problems/intersection-of-two-linked-lists/
 class Node:
     def __init__(self, data):
         self.data = data
@@ -8,6 +10,17 @@ class Linkedlist:
         self.head = Node(data)
         self.tail = self.head
         self.size = 1
+
+#   Insertoin using recursion
+    def insertion(self, data, index, node):
+        if index == 0:
+            temp = Node(data)
+            temp.next = node
+            self.size += 1
+            return temp
+        
+        node.next = self.insertion(data, index-1, node.next)
+        return node
 
 #   Inserrtion operation
 
@@ -82,34 +95,43 @@ class Linkedlist:
             print(traverse.data)
             traverse = traverse.next
         print('end')
-        
-ssl = Linkedlist(1)
-ssl.append(1)
-ssl.append(1)
-ssl.append(2)
-ssl.append(4)
-ssl.append(4)
-ssl.display()
 
 
-def removeDuplicates(node):
-    newNode = Linkedlist(node.data)
-    temp = node.next
-    while node.next != None and temp.next != None:
-        if node.data == temp.data:
-            temp = temp.next
-        else:
-            newNode.append(temp.data)
-            node = temp
-    return newNode.head
 
-
-def display(head):
+def getLength(head):
     traverse = head
+    length = 1
     while traverse:
-        print(traverse.data)
+        length += 1
         traverse = traverse.next
-    print('end')
+    return length
 
-Newhead = removeDuplicates(ssl.head)
-display(Newhead)
+
+def getIntersectionNode(firsthead, secondhead):
+    lengthOffirstHead = getLength(firsthead)
+    lengthOFsecondhead = getLength(secondhead)
+    
+    if lengthOffirstHead > lengthOFsecondhead:
+        minNode = lengthOffirstHead - lengthOFsecondhead
+        head1 = firsthead
+        for i in range(minNode):
+            head1 = head1.next
+        head2 = secondhead
+        while head1 != None and head2 != None:
+            if head1.next == head2.next:
+                return head1.next
+            head1 = head1.next
+            head2 = head2.next
+        return None
+    else:
+        minNode = lengthOFsecondhead - lengthOffirstHead
+        head2 = secondhead
+        for i in range(minNode):
+            head2 = head2.next
+        head1 = firsthead
+        while head1 != None and head2 != None:
+            if head1.next == head2.next:
+                return head1.next
+            head1 = head1.next
+            head2 = head2.next
+        return None

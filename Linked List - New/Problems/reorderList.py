@@ -9,6 +9,17 @@ class Linkedlist:
         self.tail = self.head
         self.size = 1
 
+#   Insertoin using recursion
+    def insertion(self, data, index, node):
+        if index == 0:
+            temp = Node(data)
+            temp.next = node
+            self.size += 1
+            return temp
+        
+        node.next = self.insertion(data, index-1, node.next)
+        return node
+
 #   Inserrtion operation
 
     def append(self, data):
@@ -82,27 +93,57 @@ class Linkedlist:
             print(traverse.data)
             traverse = traverse.next
         print('end')
-        
-ssl = Linkedlist(1)
-ssl.append(1)
-ssl.append(1)
-ssl.append(2)
-ssl.append(4)
-ssl.append(4)
-ssl.display()
 
+list = Linkedlist(1)
+list.append(2)
+list.append(3)
+list.append(4)
+# list.append(5)
+# list.append(6)
+# list.append(7)
 
-def removeDuplicates(node):
-    newNode = Linkedlist(node.data)
-    temp = node.next
-    while node.next != None and temp.next != None:
-        if node.data == temp.data:
-            temp = temp.next
-        else:
-            newNode.append(temp.data)
-            node = temp
-    return newNode.head
+# get Middle
 
+def getMiddle(head):
+    slow = head
+    fast = head
+    while fast != None and fast.next != None:
+        slow = slow.next
+        fast = fast.next.next
+    
+    return slow
+
+# reverse the list
+def reverse(head):
+    previous = None
+    current = head
+    nextnode = current.next
+
+    while current != None:
+        current.next = previous
+        previous = current
+        current = nextnode
+        if nextnode != None:
+            nextnode = nextnode.next
+
+    return previous
+
+def reorder(head):
+    firsthead = head
+    middle = getMiddle(head)
+    print(middle.data)
+    secondhead = reverse(middle)
+
+    while firsthead != None and secondhead != None:
+        temp = firsthead.next
+        firsthead.next = secondhead
+        firsthead = temp
+        temp = secondhead.next
+        secondhead.next = firsthead
+        secondhead = temp
+
+    if firsthead != None:
+        firsthead.next = None
 
 def display(head):
     traverse = head
@@ -111,5 +152,5 @@ def display(head):
         traverse = traverse.next
     print('end')
 
-Newhead = removeDuplicates(ssl.head)
-display(Newhead)
+reorder(list.head)
+list.display()

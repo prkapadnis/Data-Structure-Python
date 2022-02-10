@@ -1,3 +1,4 @@
+# merf the two sorted list
 class Node:
     def __init__(self, data):
         self.data = data
@@ -82,27 +83,41 @@ class Linkedlist:
             print(traverse.data)
             traverse = traverse.next
         print('end')
+
+ssl1 = Linkedlist(1)
+ssl1.append(2)
+ssl1.append(4)
+
+ssl2 = Linkedlist(1)
+ssl2.append(3)
+ssl2.append(4)
+
+
+
+def mergeList(head_1, head_2):
+    head1 = head_1
+    head2 = head_2
+    newHead = Linkedlist(0)
+    while head1 != None and head2 != None:
         
-ssl = Linkedlist(1)
-ssl.append(1)
-ssl.append(1)
-ssl.append(2)
-ssl.append(4)
-ssl.append(4)
-ssl.display()
-
-
-def removeDuplicates(node):
-    newNode = Linkedlist(node.data)
-    temp = node.next
-    while node.next != None and temp.next != None:
-        if node.data == temp.data:
-            temp = temp.next
+        if head1.data < head2.data:
+            newHead.append(head1.data)
+            head1 = head1.next
         else:
-            newNode.append(temp.data)
-            node = temp
-    return newNode.head
+            newHead.append(head2.data)
+            head2 = head2.next
+    
+    while head1 != None:
+        newHead.append(head1.data)
+        head1 = head1.next
+        # newHead = newHead.next
+    
+    while head2 != None:
+        newHead.append(head2.data)
+        head2 = head2.next
+        # newHead = newHead.next
 
+    return newHead.head.next
 
 def display(head):
     traverse = head
@@ -111,5 +126,5 @@ def display(head):
         traverse = traverse.next
     print('end')
 
-Newhead = removeDuplicates(ssl.head)
-display(Newhead)
+newHead = mergeList(ssl1.head, ssl2.head)
+display(newHead)

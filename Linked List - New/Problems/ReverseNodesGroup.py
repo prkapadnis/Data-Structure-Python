@@ -1,3 +1,7 @@
+#  Reverse Nodes in k-Group
+from dis import dis
+
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -8,6 +12,17 @@ class Linkedlist:
         self.head = Node(data)
         self.tail = self.head
         self.size = 1
+
+#   Insertoin using recursion
+    def insertion(self, data, index, node):
+        if index == 0:
+            temp = Node(data)
+            temp.next = node
+            self.size += 1
+            return temp
+        
+        node.next = self.insertion(data, index-1, node.next)
+        return node
 
 #   Inserrtion operation
 
@@ -82,34 +97,42 @@ class Linkedlist:
             print(traverse.data)
             traverse = traverse.next
         print('end')
-        
-ssl = Linkedlist(1)
-ssl.append(1)
-ssl.append(1)
-ssl.append(2)
-ssl.append(4)
-ssl.append(4)
-ssl.display()
 
+list = Linkedlist(1)
+list.append(2)    
+list.append(3)    
+list.append(4)    
+list.append(5)    
+list.append(6)    
+list.append(7)    
 
-def removeDuplicates(node):
-    newNode = Linkedlist(node.data)
-    temp = node.next
-    while node.next != None and temp.next != None:
-        if node.data == temp.data:
-            temp = temp.next
+def reverseKGroup(head, k):
+    previous = None
+    current = head
+    nextnode = current.next
+    while current != None:
+        first = current
+        for i in range(k):
+            if current != None:
+                current.next = previous
+                previous = current
+                current = nextnode
+                if nextnode != None:
+                    nextnode = nextnode.next
+            else:
+                break
+        if first != None:
+            first.next = previous
         else:
-            newNode.append(temp.data)
-            node = temp
-    return newNode.head
-
+            head = previous
+    return head
 
 def display(head):
     traverse = head
     while traverse:
-        print(traverse.data)
+        print(traverse.data, end=' -> ')
         traverse = traverse.next
-    print('end')
+    print('-> end')
 
-Newhead = removeDuplicates(ssl.head)
-display(Newhead)
+head = reverseKGroup(list.head, 3)
+display(head)

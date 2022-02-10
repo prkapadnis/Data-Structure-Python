@@ -1,3 +1,9 @@
+# Convert Binary Number of linked list to Decimal 
+# https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/
+
+from dis import dis
+
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -8,6 +14,17 @@ class Linkedlist:
         self.head = Node(data)
         self.tail = self.head
         self.size = 1
+
+#   Insertoin using recursion
+    def insertion(self, data, index, node):
+        if index == 0:
+            temp = Node(data)
+            temp.next = node
+            self.size += 1
+            return temp
+        
+        node.next = self.insertion(data, index-1, node.next)
+        return node
 
 #   Inserrtion operation
 
@@ -82,27 +99,11 @@ class Linkedlist:
             print(traverse.data)
             traverse = traverse.next
         print('end')
-        
-ssl = Linkedlist(1)
-ssl.append(1)
-ssl.append(1)
-ssl.append(2)
-ssl.append(4)
-ssl.append(4)
-ssl.display()
 
-
-def removeDuplicates(node):
-    newNode = Linkedlist(node.data)
-    temp = node.next
-    while node.next != None and temp.next != None:
-        if node.data == temp.data:
-            temp = temp.next
-        else:
-            newNode.append(temp.data)
-            node = temp
-    return newNode.head
-
+list = Linkedlist(1)
+list.append(1)
+list.append(0)
+list.append(1)
 
 def display(head):
     traverse = head
@@ -111,5 +112,33 @@ def display(head):
         traverse = traverse.next
     print('end')
 
-Newhead = removeDuplicates(ssl.head)
-display(Newhead)
+
+def reverse(head):
+    previous = None
+    current = head
+    nextnode = current.next
+    while current != None:
+        current.next = previous
+        previous = current
+        current = nextnode
+        if nextnode:
+            nextnode = nextnode.next
+
+    head = previous
+    return head
+
+def getDecimalValue(head):
+    traverse = head
+    value = 0
+    i = 0
+    while traverse:
+        if traverse.data == 1:
+            value = value + pow(2, i)
+        i += 1
+        traverse = traverse.next
+    return value
+
+
+newhead = reverse(list.head)
+display(newhead)
+print(getDecimalValue(newhead))

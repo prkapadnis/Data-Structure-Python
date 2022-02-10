@@ -1,3 +1,4 @@
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -8,6 +9,17 @@ class Linkedlist:
         self.head = Node(data)
         self.tail = self.head
         self.size = 1
+
+#   Insertoin using recursion
+    def insertion(self, data, index, node):
+        if index == 0:
+            temp = Node(data)
+            temp.next = node
+            self.size += 1
+            return temp
+        
+        node.next = self.insertion(data, index-1, node.next)
+        return node
 
 #   Inserrtion operation
 
@@ -82,34 +94,38 @@ class Linkedlist:
             print(traverse.data)
             traverse = traverse.next
         print('end')
-        
-ssl = Linkedlist(1)
-ssl.append(1)
-ssl.append(1)
-ssl.append(2)
-ssl.append(4)
-ssl.append(4)
-ssl.display()
+
+#   recursion
+    def reverse(self, node):
+        if node == self.tail:
+            self.head = self.tail
+            return
+        self.reverse(node.next)
+        self.tail.next = node
+        self.tail = node
+        self.tail.next = None
+
+#   Interative
+    def reversion(self):
+        previous = None
+        present = self.head
+        next = self.head.next
+
+        while present != None:
+            present.next = previous
+            previous = present
+            present = next
+            if next != None:
+                next = next.next
+        self.head = previous
 
 
-def removeDuplicates(node):
-    newNode = Linkedlist(node.data)
-    temp = node.next
-    while node.next != None and temp.next != None:
-        if node.data == temp.data:
-            temp = temp.next
-        else:
-            newNode.append(temp.data)
-            node = temp
-    return newNode.head
-
-
-def display(head):
-    traverse = head
-    while traverse:
-        print(traverse.data)
-        traverse = traverse.next
-    print('end')
-
-Newhead = removeDuplicates(ssl.head)
-display(Newhead)
+list = Linkedlist(10)
+list.append(20)
+list.append(30)
+list.append(40)
+list.append(50)
+list.display()
+# list.reverse(list.head)
+list.reversion()
+list.display()

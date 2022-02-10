@@ -1,3 +1,5 @@
+# Remove Nth Node From End of List
+# https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 class Node:
     def __init__(self, data):
         self.data = data
@@ -8,6 +10,17 @@ class Linkedlist:
         self.head = Node(data)
         self.tail = self.head
         self.size = 1
+
+#   Insertoin using recursion
+    def insertion(self, data, index, node):
+        if index == 0:
+            temp = Node(data)
+            temp.next = node
+            self.size += 1
+            return temp
+        
+        node.next = self.insertion(data, index-1, node.next)
+        return node
 
 #   Inserrtion operation
 
@@ -82,34 +95,38 @@ class Linkedlist:
             print(traverse.data)
             traverse = traverse.next
         print('end')
-        
-ssl = Linkedlist(1)
-ssl.append(1)
-ssl.append(1)
-ssl.append(2)
-ssl.append(4)
-ssl.append(4)
-ssl.display()
+
+list = Linkedlist(1)
+# list.append(2)
+# list.append(3)
+# list.append(4)
+# list.append(5)
+list.display()
 
 
-def removeDuplicates(node):
-    newNode = Linkedlist(node.data)
-    temp = node.next
-    while node.next != None and temp.next != None:
-        if node.data == temp.data:
-            temp = temp.next
-        else:
-            newNode.append(temp.data)
-            node = temp
-    return newNode.head
-
-
-def display(head):
+def getLength(head):
     traverse = head
+    length = 0
     while traverse:
-        print(traverse.data)
+        length += 1
         traverse = traverse.next
-    print('end')
+    return length
 
-Newhead = removeDuplicates(ssl.head)
-display(Newhead)
+
+def removeNthFromEnd(head, position):
+    traverse = head
+    lengthOfList = getLength(head)
+    # print(lengthOfList)
+    fromStart = lengthOfList - position 
+    # print(fromStart)
+    if not fromStart:
+        return head.next
+
+    for i in range(fromStart-1):
+        traverse = traverse.next
+    
+    traverse.next = traverse.next.next
+    # return head
+
+removeNthFromEnd(list.head, 1)
+list.display()

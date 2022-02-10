@@ -1,3 +1,4 @@
+#  Reverse Nodes in k-Group
 class Node:
     def __init__(self, data):
         self.data = data
@@ -8,6 +9,17 @@ class Linkedlist:
         self.head = Node(data)
         self.tail = self.head
         self.size = 1
+
+#   Insertoin using recursion
+    def insertion(self, data, index, node):
+        if index == 0:
+            temp = Node(data)
+            temp.next = node
+            self.size += 1
+            return temp
+        
+        node.next = self.insertion(data, index-1, node.next)
+        return node
 
 #   Inserrtion operation
 
@@ -82,34 +94,43 @@ class Linkedlist:
             print(traverse.data)
             traverse = traverse.next
         print('end')
-        
-ssl = Linkedlist(1)
-ssl.append(1)
-ssl.append(1)
-ssl.append(2)
-ssl.append(4)
-ssl.append(4)
-ssl.display()
+
+list = Linkedlist(1)
+list.append(2)
+list.append(3)
+list.append(4)
+list.append(5)
 
 
-def removeDuplicates(node):
-    newNode = Linkedlist(node.data)
-    temp = node.next
-    while node.next != None and temp.next != None:
-        if node.data == temp.data:
-            temp = temp.next
-        else:
-            newNode.append(temp.data)
-            node = temp
-    return newNode.head
+def rotateList(head, k):
+    if k <= 0 or head == None or head.next == None:
+        return head
+    
+    lastnode = head
+    length = 1
+    while lastnode.next != None:
+        lastnode = lastnode.next
+        length += 1
+    
+    lastnode.next = head
 
+    newend = head
+    rotation = k % length
+    skip = length - rotation
+    for i in range(skip - 1):
+        newend = newend.next
+    
+    head = newend.next
+    newend.next = None
+    return head
 
 def display(head):
-    traverse = head
-    while traverse:
-        print(traverse.data)
-        traverse = traverse.next
-    print('end')
+        traverse = head
+        while traverse:
+            print(traverse.data)
+            traverse = traverse.next
+        print('end')
 
-Newhead = removeDuplicates(ssl.head)
-display(Newhead)
+
+head = rotateList(list.head, 2)
+display(head)

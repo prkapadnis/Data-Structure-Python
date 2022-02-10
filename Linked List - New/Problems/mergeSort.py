@@ -1,3 +1,4 @@
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -8,6 +9,17 @@ class Linkedlist:
         self.head = Node(data)
         self.tail = self.head
         self.size = 1
+
+#   Insertoin using recursion
+    def insertion(self, data, index, node):
+        if index == 0:
+            temp = Node(data)
+            temp.next = node
+            self.size += 1
+            return temp
+        
+        node.next = self.insertion(data, index-1, node.next)
+        return node
 
 #   Inserrtion operation
 
@@ -82,27 +94,48 @@ class Linkedlist:
             print(traverse.data)
             traverse = traverse.next
         print('end')
+
+list1 = Linkedlist(4)
+list1.append(2)
+list1.append(1)
+list1.append(3)
+
+
+
+
+def mergeList(head_1, head_2):
+    head1 = head_1
+    head2 = head_2
+    newHead = Linkedlist(0)
+    while head1 != None and head2 != None:
         
-ssl = Linkedlist(1)
-ssl.append(1)
-ssl.append(1)
-ssl.append(2)
-ssl.append(4)
-ssl.append(4)
-ssl.display()
-
-
-def removeDuplicates(node):
-    newNode = Linkedlist(node.data)
-    temp = node.next
-    while node.next != None and temp.next != None:
-        if node.data == temp.data:
-            temp = temp.next
+        if head1.data < head2.data:
+            newHead.append(head1.data)
+            head1 = head1.next
         else:
-            newNode.append(temp.data)
-            node = temp
-    return newNode.head
+            newHead.append(head2.data)
+            head2 = head2.next
+    
+    while head1 != None:
+        newHead.append(head1.data)
+        head1 = head1.next
+        # newHead = newHead.next
+    
+    while head2 != None:
+        newHead.append(head2.data)
+        head2 = head2.next
+        # newHead = newHead.next
 
+    return newHead.head.next
+
+def getMiddle(head):
+    slow = head
+    while head != None and head.next != None:
+        slow = slow.next
+        head = head.next.next
+    mid = slow.next
+    slow.next = None
+    return mid
 
 def display(head):
     traverse = head
@@ -111,5 +144,15 @@ def display(head):
         traverse = traverse.next
     print('end')
 
-Newhead = removeDuplicates(ssl.head)
-display(Newhead)
+def mergeSort(head):
+    if head == None and head.next == None:
+        return head
+    midNode = getMiddle(head)
+    leftList = mergeSort(head)
+    rightList = mergeSort(midNode)
+
+    return mergeList(leftList.head, rightList.head)
+
+# head = getMiddle(list1.head)
+head = mergeSort(list1.head)
+display(head)

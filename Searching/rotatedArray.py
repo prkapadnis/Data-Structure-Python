@@ -4,6 +4,7 @@ def rotateArray(arr, key):
     ans = [0 for i in range(len(arr))]
     for i in range(len(arr)):
         ans[(i+key) % len(arr)] = arr[i]
+        print(ans)
     return ans
 
 
@@ -19,13 +20,14 @@ def rotateArray_1(nums, key):
     if key == 0:
         return nums
     else:
-        temp = nums[0:len(nums)-key]
-        nums[0:key] = nums[len(nums)-key:len(nums)]
-        nums[key:len(nums)] = temp
+        # suppose the array is [1,2,3,4,5,6] and key is [2]
+        temp = nums[0:len(nums)-key]  # [1,2,3,4]
+        nums[0:key] = nums[len(nums)-key:len(nums)] # nums[4:6] = [5,6]
+        nums[key:len(nums)] = temp # [5,6,1,2,3,4]
 
 
-nums = [-1]
+nums = [1,2,3,4,5,6]
 key = 2
-# print(rotateArray(nums, key))
-print(rotateArray_1(nums, key))
+print(rotateArray(nums, key))
+# print(rotateArray_1(nums, key))
 print(nums)
